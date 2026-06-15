@@ -76,6 +76,7 @@ import com.mihomo.manager.data.model.DnsConfig
 import com.mihomo.manager.data.model.MihomoConfig
 import com.mihomo.manager.data.model.Proxy
 import com.mihomo.manager.data.model.ProxyGroup
+import com.mihomo.manager.data.model.RealityOptions
 import com.mihomo.manager.data.model.TunConfig
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -360,6 +361,12 @@ private fun EditProxyDialog(initialProxy: Proxy?, onDismiss: () -> Unit, onConfi
     var uuid by remember { mutableStateOf(initialProxy?.uuid ?: "") }
     var network by remember { mutableStateOf(initialProxy?.network ?: "") }
     var sni by remember { mutableStateOf(initialProxy?.sni ?: "") }
+    var tls by remember { mutableStateOf(initialProxy?.tls ?: false) }
+    var flow by remember { mutableStateOf(initialProxy?.flow ?: "") }
+    var servername by remember { mutableStateOf(initialProxy?.servername ?: "") }
+    var clientFingerprint by remember { mutableStateOf(initialProxy?.clientFingerprint ?: "") }
+    var realityPublicKey by remember { mutableStateOf(initialProxy?.realityOpts?.publicKey ?: "") }
+    var realityShortId by remember { mutableStateOf(initialProxy?.realityOpts?.shortId ?: "") }
     var udp by remember { mutableStateOf(initialProxy?.udp ?: true) }
     var skipCert by remember { mutableStateOf(initialProxy?.skipCertVerify ?: false) }
     var typeExpanded by remember { mutableStateOf(false) }
@@ -386,6 +393,16 @@ private fun EditProxyDialog(initialProxy: Proxy?, onDismiss: () -> Unit, onConfi
                     OutlinedTextField(value = network, onValueChange = { network = it }, label = { Text("网络") }, modifier = Modifier.fillMaxWidth())
                 if (type in listOf("vmess", "vless", "trojan"))
                     OutlinedTextField(value = sni, onValueChange = { sni = it }, label = { Text("SNI") }, modifier = Modifier.fillMaxWidth())
+                if (type == "vless") {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                        Text("TLS"); Switch(checked = tls, onCheckedChange = { tls = it })
+                    }
+                    OutlinedTextField(value = flow, onValueChange = { flow = it }, label = { Text("Flow") }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = servername, onValueChange = { servername = it }, label = { Text("Server Name") }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = clientFingerprint, onValueChange = { clientFingerprint = it }, label = { Text("Client Fingerprint") }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = realityPublicKey, onValueChange = { realityPublicKey = it }, label = { Text("Reality Public Key") }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = realityShortId, onValueChange = { realityShortId = it }, label = { Text("Reality Short ID") }, modifier = Modifier.fillMaxWidth())
+                }
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Text("UDP"); Switch(checked = udp, onCheckedChange = { udp = it })
                 }
@@ -396,10 +413,20 @@ private fun EditProxyDialog(initialProxy: Proxy?, onDismiss: () -> Unit, onConfi
         },
         confirmButton = {
             TextButton(onClick = {
+                val realityOptions = RealityOptions(
+                    publicKey = realityPublicKey.ifBlank { null },
+                    shortId = realityShortId.ifBlank { null },
+                ).takeIf { it.publicKey != null || it.shortId != null }
                 onConfirm(Proxy(name, type, server, port.toIntOrNull() ?: 443,
                     password = password.ifBlank { null }, cipher = if (type == "ss") cipher else null,
                     sni = sni.ifBlank { null }, skipCertVerify = skipCert, udp = udp,
-                    uuid = uuid.ifBlank { null }, network = network.ifBlank { null }))
+                    uuid = uuid.ifBlank { null }, network = network.ifBlank { null },
+                    tls = tls.takeIf { type == "vless" },
+                    flow = flow.ifBlank { null },
+                    servername = servername.ifBlank { null },
+                    clientFingerprint = clientFingerprint.ifBlank { null },
+                    realityOpts = realityOptions,
+                ))
             }, enabled = name.isNotBlank() && server.isNotBlank()) { Text("确定") }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text("取消") } },

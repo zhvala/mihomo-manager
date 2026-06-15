@@ -34,6 +34,17 @@ data class Proxy(
     val uuid: String? = null,
     val alterId: Int? = null,
     val network: String? = null,
+    val tls: Boolean? = null,
+    val flow: String? = null,
+    val servername: String? = null,
+    @SerialName("client-fingerprint") val clientFingerprint: String? = null,
+    @SerialName("reality-opts") val realityOpts: RealityOptions? = null,
+)
+
+@Serializable
+data class RealityOptions(
+    @SerialName("public-key") val publicKey: String? = null,
+    @SerialName("short-id") val shortId: String? = null,
 )
 
 @Serializable
