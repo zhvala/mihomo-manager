@@ -1,0 +1,53 @@
+# Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Android build outputs
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Kotlin
+.kotlin/
+
+# IntelliJ / Android Studio
+*.iml
+.idea/
+*.ipr
+*.iws
+out/
+
+# Local config (machine-specific)
+local.properties
+
+# JVM crash logs & heap dumps
+*.hprof
+hs_err_pid*.log
+replay_pid*.log
+
+# Keystores / signing
+*.jks
+*.keystore
+keystore.properties
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+
+# Claude Code (local personal settings)
+.claude/settings.local.json

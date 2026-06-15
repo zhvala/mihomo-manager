@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="108dp"
+    android:width="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Shield outline -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M54,24 L30,34 L30,54 C30,68 40,77 54,82 C68,77 78,68 78,54 L78,34 Z"
+        android:fillAlpha="0.15"/>
+
+    <path
+        android:strokeColor="#ffffff"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:pathData="M54,24 L30,34 L30,54 C30,68 40,77 54,82 C68,77 78,68 78,54 L78,34 Z"/>
+
+    <!-- Network node: center -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M54,52 m-5,0 a5,5 0,1 1,10 0 a5,5 0,1 1,-10 0"/>
+
+    <!-- Network node: top -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M54,37 m-3.5,0 a3.5,3.5 0,1 1,7 0 a3.5,3.5 0,1 1,-7 0"/>
+
+    <!-- Network node: bottom-left -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M41,66 m-3.5,0 a3.5,3.5 0,1 1,7 0 a3.5,3.5 0,1 1,-7 0"/>
+
+    <!-- Network node: bottom-right -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M67,66 m-3.5,0 a3.5,3.5 0,1 1,7 0 a3.5,3.5 0,1 1,-7 0"/>
+
+    <!-- Connection lines -->
+    <path
+        android:strokeColor="#ffffff"
+        android:strokeWidth="2.2"
+        android:fillColor="#00000000"
+        android:pathData="M54,40.5 L54,47"/>
+
+    <path
+        android:strokeColor="#ffffff"
+        android:strokeWidth="2.2"
+        android:fillColor="#00000000"
+        android:pathData="M50,55.5 L43.5,63.5"/>
+
+    <path
+        android:strokeColor="#ffffff"
+        android:strokeWidth="2.2"
+        android:fillColor="#00000000"
+        android:pathData="M58,55.5 L64.5,63.5"/>
+
+</vector>
